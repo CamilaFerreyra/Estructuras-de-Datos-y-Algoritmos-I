@@ -1,19 +1,28 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+typedef void (*VisitorFunc)(int);       //familia de funciones
+
 void set_first(int[]);
 void set_in(int *);
 void swap(int *, int *);
 char *get_new_line(void);
 int par_impar(int);
 int apply(int (*)(int), int);
+void apply_in(int (*)(int), int *);
+void recorre(VisitorFunc, int[], int);
+int sucesor(int);
+void imprimir(int);
+
 
 int main() {
   //declaro variables locales
   int entero = 13;
   float flotante = 0.13;
   char caracter = 'C';
-  char arregloCaracteres[5] = { 'H', 'o', 'l', 'a', '\0' };
+  //char arregloCaracteres[5] = { 'H', 'o', 'l', 'a', '\0' };
+  char arregloCaracteres[5] = "Hola";
+
 
   //imprimo direcciones de memoria de variables
   printf("Dirección de 'entero': %p\n", (void *) &entero);
@@ -97,12 +106,16 @@ int main() {
    */
 
   int numero = 13;
+  printf("numero: %d - es par (0) o impar (1): %d\n", numero,
+         apply(par_impar, numero));
   printf("numerito: %d", numero);
-  //void *punteroFuncion;
-  //punteroFuncion = &par_impar;
-  numero = apply(par_impar, numero);
+
+  //numero = apply(par_impar, numero);
+  int *punteroNumero = &numero;
+  apply_in(par_impar, punteroNumero);
   printf(" - funcion(numerito): %d\n", numero);
 
+  recorre(imprimir, arreglito, 3);
 
   return 0;
 }
@@ -167,9 +180,38 @@ int par_impar(int n) {
 }
 int apply(int (*funcion)(int), int value) {
   //verifico si el puntero no es nulo
-  if(funcion == NULL) {
+  if (funcion == NULL) {
     fprintf(stderr, "Error: puntero a función nulo \n");
     return -1;                  //valor de error 
   }
   return funcion(value);
+}
+
+void apply_in(int (*funcion)(int), int *p) {
+  if(funcion == NULL || p == NULL) {
+    fprintf(stderr, "Error: puntero nulo \n");
+    //return -1; NO PUEDO RETORNAR NADA, ES VOID
+  }
+  *p = funcion(*p);
+}
+
+//typedef void (*VisitorFunc)(int);
+
+void recorre(VisitorFunc visit, int array[], int length) {
+  //valido parametros de entrada
+  if (visit == NULL || array == NULL || length <= 0) {
+    printf("parámetros inválidos");
+  }
+
+  for (int i = 0; i < length; i++) {
+    visit(array[i]);            //es un puntero a esa dirección y es lo que apunta.
+  }
+}
+
+int sucesor(int n) {
+  return n + 1;
+}
+
+void imprimir(int n) {
+  printf("%d \n", n);
 }
