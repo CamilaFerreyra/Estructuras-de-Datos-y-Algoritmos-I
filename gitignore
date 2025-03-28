@@ -15,6 +15,7 @@ a.out
 *~
 *.swp
 *.bak
+*.c~
 
 # Directorios de compilación
 build/
