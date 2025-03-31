@@ -6,6 +6,8 @@
 
 #define MAX_NOMBRE 100
 #define MAX_TEL 20
+#define MAX_CONTACTOS 2
+
 
 typedef struct {
   char nombre[MAX_NOMBRE];
@@ -13,9 +15,18 @@ typedef struct {
   unsigned edad;
 } Contacto;
 
+typedef struct {
+  Contacto contactos[MAX_CONTACTOS];
+  int cantidad;
+} Agenda;
+
 Contacto crear_contacto();
 char *get_new_line(void);
 void actualizar_edad(Contacto *);
+void alta_contacto(Agenda *);
+void modificar_edad(Agenda *);
+void imprimir_contactos(Agenda *);
+double prom(Agenda *);
 
 int main() {
   Contacto c = crear_contacto();
@@ -50,6 +61,67 @@ Contacto crear_contacto() {
 void actualizar_edad(Contacto * contacto) {
   printf("\nIngrese nueva edad: ");
   scanf("%u", &contacto->edad);
+}
+
+void alta_contacto(Agenda * a) {
+  if (a->cantidad >= MAX_CONTACTOS) {
+    printf("ERROR. Agenda llena. No se puede agregar más contactos");
+    return;
+  }
+  Contacto nuevoC = crear_contacto();
+  a->contactos[a->cantidad] = nuevoC;
+  a->cantidad++;
+  printf("\nContacto agregado exitosamente.");
+
+}
+
+void modificar_edad(Agenda * a) {
+  if (a->cantidad == 0)
+    printf("ERROR. Agenda vacía.");
+  char *nombreBuscado = get_new_line();
+  if (!nombreBuscado)
+    return;
+
+  int encontrado = 0;
+  for (int i = 0; i < a->cantidad; i++) {
+    if (strcmp(a->contactos[i].nombre, nombreBuscado) == 0) {
+      actualizar_edad(&a->contactos[i]);
+      encontrado = 1;
+      break;
+    }
+  }
+  free(nombreBuscado);
+
+  if (!encontrado) {
+    printf("Contacto no encontrado.\n");
+  }
+
+}
+
+void imprimir_contactos(Agenda * a) {
+  if (a->cantidad == 0) {
+    printf("ERROR. Agenda vacía\n");
+    return;
+  }
+  printf("Datos agenda:\n");
+  for (int i = 0; i < a->cantidad; i++) {
+    printf("Contacto %d: %s, %u, %s",
+           i, a->contactos[i].nombre, a->contactos[i].edad,
+           a->contactos[i].tel);
+  }
+}
+
+double prom(Agenda * a) {
+  if (a->cantidad == 0) {
+    printf("ERROR. Agenda vacía\n");
+    return 0;
+  }
+  
+  double acumulador = 0;
+  for (int i = 0; i < a->cantidad; i++) {
+    acumulador += a->contactos[i].edad;
+  }
+  return acumulador / a->cantidad;
 }
 
 char *get_new_line(void) {
