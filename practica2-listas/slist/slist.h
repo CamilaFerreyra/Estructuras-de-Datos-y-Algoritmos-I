@@ -64,10 +64,20 @@ SList slist_insertar(SList lista, int dato);
 SList slist_insertar_posicion(SList lista, int posicion, int dato);
 
 /**
+ * (d) Borra de una lista un dato apuntado en una posición arbitraria.
+ */
+SList slist_eliminar(SList lista);
+
+/**
+ * (d.1) Borra de una lista un dato apuntado en una posición dada.
+ */
+SList slist_eliminar_posicion(SList lista, int posicion);
+
+/**
  * (l) Recibe una lista y la divide a la mitad.
  * Retorna un puntero al primer elemento de la segunda mitad.
  * Si la lista tiene (2n+1) elementos, la primer lista tendrá (n+1) elementos.
  */
-
  SList slist_partir(SList lista);
+
 #endif /* __SLIST_H__ */

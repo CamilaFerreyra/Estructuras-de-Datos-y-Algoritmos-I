@@ -1,12 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "slist.h"
+#include <time.h>
+
 
 static void imprimir_entero(int dato) {
   printf("%d ", dato);
 }
 
 int main(int argc, char *argv[]) {
+
+  srand(time(NULL));
 
   SList lista = slist_crear();
 
@@ -54,6 +58,11 @@ int main(int argc, char *argv[]) {
   // slist_insertar_posicion(lista, 0, 13);
   lista = slist_insertar(lista, 14);
   slist_recorrer(lista, imprimir_entero);
+
+  printf("\nElimino nodo random\n");
+  lista = slist_eliminar(lista);
+  slist_recorrer(lista, imprimir_entero);
+
 
 
 

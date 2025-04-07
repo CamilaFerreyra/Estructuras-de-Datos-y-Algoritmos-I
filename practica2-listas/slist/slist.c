@@ -1,6 +1,7 @@
 #include "slist.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <time.h>
 
 SList slist_crear() {
   return NULL;
@@ -100,6 +101,35 @@ SList slist_insertar_posicion(SList lista, int posicion, int dato) {
 
   return lista;
 }
+
+SList slist_eliminar(SList lista) {
+  int longitud = slist_longitud(lista);
+  if (longitud == 0) {
+    printf("Error. No se pueden eliminar nodos de una lista vacía.");
+    return lista;
+  }
+  int posicion = rand() % longitud;
+  return slist_eliminar_posicion(lista, posicion);
+}
+
+SList slist_eliminar_posicion(SList lista, int posicion) {
+  int longitud = slist_longitud(lista);
+  if (posicion > longitud || longitud < 0) {
+    printf("Error: no se puede eliminar un dato de la posición %d\n", posicion);
+    return lista;
+  }
+
+  if(posicion == 0) return lista->sig;
+
+  SNodo *temp = lista;
+  for(int i = 0; i < posicion - 1; i++) {
+    temp = temp->sig;
+  }
+  temp->sig = (temp->sig)->sig;
+  return lista;
+}
+
+
 
 // realizable en o(n), ver cómo carajos
 SList slist_partir(SList lista) {
