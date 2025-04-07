@@ -3,7 +3,23 @@
 #include "dlist.h"
 #include <time.h>
 
+static void imprimir_entero(int dato) {
+  printf("%d ", dato);
+}
+
 int main(int argc, char *argv[]) {
- 
- return 0;
+
+  DList lista = dlist_crear();
+  lista = dlist_agregar_final(lista, 10);
+  lista = dlist_agregar_inicio(lista, 5);
+  lista = dlist_agregar_final(lista, 20);
+
+  printf("Recorrido hacia adelante: ");
+  dlist_recorrer(lista, imprimir_entero, DLIST_RECORRIDO_HACIA_DELANTE);
+
+  printf("\nRecorrido hacia atrás: ");
+  dlist_recorrer(lista, imprimir_entero, DLIST_RECORRIDO_HACIA_ATRAS);
+
+  dlist_destruir(lista);
+  return 0;
 }
