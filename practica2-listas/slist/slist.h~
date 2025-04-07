@@ -4,14 +4,14 @@
 #include <stddef.h>
 
 //sinónimos de tipos
-typedef void (*FuncionVisitante)(int dato);
+typedef void (*FuncionVisitante) (int dato);
 
 typedef struct _SNodo {
   int dato;
   struct _SNodo *sig;
 } SNodo;
 
-typedef SNodo *SList;
+typedef SNodo* SList;
 
 /**
  * Devuelve una lista vacía.
@@ -78,6 +78,6 @@ SList slist_eliminar_posicion(SList lista, int posicion);
  * Retorna un puntero al primer elemento de la segunda mitad.
  * Si la lista tiene (2n+1) elementos, la primer lista tendrá (n+1) elementos.
  */
-SList slist_partir(SList lista);
+ SList slist_partir(SList lista);
 
-#endif                          /* __SLIST_H__ */
+#endif /* __SLIST_H__ */

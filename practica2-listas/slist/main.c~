@@ -27,7 +27,7 @@ int main(int argc, char *argv[]) {
 
   SList lista2 = slist_crear();
   lista2 = slist_agregar_final(lista2, 0);
-
+  
   printf("\nlistas antes: \n");
   slist_recorrer(lista, imprimir_entero);
   printf("\n");
@@ -49,7 +49,7 @@ int main(int argc, char *argv[]) {
   slist_recorrer(lista2, imprimir_entero);
 
   printf("\nInserto datos\n");
-  slist_recorrer(lista, imprimir_entero);
+  slist_recorrer(lista, imprimir_entero); 
   printf("\n");
   lista = slist_insertar_posicion(lista, 0, 13);
   // DUDA slist_insertar(lista, 14);
