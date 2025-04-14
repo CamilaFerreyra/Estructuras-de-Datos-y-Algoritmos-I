@@ -8,6 +8,13 @@ DList dlist_crear() {
   return lista;
 }
 
+//implementar crear_nodo();
+DNodo* dlist_crear_nodo(int dato) {
+ DNodo* nodo = malloc(sizeof(DNodo));
+ nodo->dato = dato;
+ return nodo;
+}
+
 void dlist_destruir(DList lista) {
   DNodo *nodo = lista.primero;
   while (nodo != NULL) {
@@ -22,8 +29,7 @@ int dlist_vacia(DList lista) {
 }
 
 DList dlist_agregar_final(DList lista, int dato) {
-  DNodo *nuevo = malloc(sizeof(DNodo));
-  nuevo->dato = dato;
+  DNodo *nuevo = dlist_crear_nodo(dato);
   nuevo->sig = NULL;
   nuevo->ant = lista.ultimo;
 
@@ -41,8 +47,7 @@ DList dlist_agregar_final(DList lista, int dato) {
 }
 
 DList dlist_agregar_inicio(DList lista, int dato) {
-  DNodo *nuevo = malloc(sizeof(DNodo));
-  nuevo->dato = dato;
+  DNodo *nuevo = dlist_crear_nodo(dato);
   nuevo->ant = NULL;
   nuevo->sig = lista.primero;
 
@@ -66,6 +71,7 @@ void dlist_recorrer(DList lista, FuncionVisitante visit,
 
   if (ord == DLIST_RECORRIDO_HACIA_ATRAS) {
     // Recorrido desde el último hasta el primero
+    // <---<---<
     DNodo *nodo = lista.ultimo;
     while (nodo != NULL) {
       visit(nodo->dato);
@@ -73,10 +79,54 @@ void dlist_recorrer(DList lista, FuncionVisitante visit,
     }
   } else {
     //desde el primero hasta el último
+    // >--->--->
     DNodo *nodo = lista.primero;
     while (nodo != NULL) {
       visit(nodo->dato);
       nodo = nodo->sig;
     }
   }
+}
+
+/** comentario: cuando mi estructura no es definida de manera recursiva,
+* quizas me conviene buscar una estructura recursiva dentro. 
+* En este caso el nodo si está definido recursivamente.
+* Busco función auxiliar que recorra los nodos.
+*/
+void dlist_recorrer_rec(DList lista, FuncionVisitante visit,
+  DListOrdenRecorrido ord) { 
+  if (ord == DLIST_RECORRIDO_HACIA_ATRAS) {
+    // Recorrido desde el último hasta el primero
+    // <-----<------<
+    DNodo *nodo = lista.ultimo;
+    if (nodo != NULL) {
+      //visit(nodo->dato);
+      //DList temp = {lista.primero,nodo->ant};
+      //dlist_recorrer_rec(temp, visit, ord);
+      dlist_recorrer_rec_aux(nodo, visit, ord);
+    }
+  } else {
+    // Recorrido desde el primero hasta el último
+    // >--->--->
+    DNodo *nodo = lista.primero;
+    if (nodo != NULL) {
+      //visit(nodo->dato);
+      //DList temp = {nodo->sig,lista.ultimo};
+      //dlist_recorrer_rec(temp, visit, ord);
+      dlist_recorrer_rec_aux(nodo, visit, ord);
+
+    }
+  }
+  }
+
+void dlist_recorrer_rec_aux(DNodo* nodo,
+  FuncionVisitante visit, DListOrdenRecorrido ord) {
+  visit(nodo->dato);
+  if(nodo->ant != NULL && ord == DLIST_RECORRIDO_HACIA_ATRAS) {
+    dlist_recorrer_rec_aux(nodo->ant, visit, ord);
+  }
+  if(nodo->sig != NULL && ord == DLIST_RECORRIDO_HACIA_DELANTE) {
+    dlist_recorrer_rec_aux(nodo->sig, visit, ord);
+  }
+    
 }
