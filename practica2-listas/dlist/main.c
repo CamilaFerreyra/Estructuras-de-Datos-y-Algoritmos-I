@@ -16,9 +16,13 @@ int main(int argc, char *argv[]) {
 
   printf("Recorrido hacia adelante: ");
   dlist_recorrer(lista, imprimir_entero, DLIST_RECORRIDO_HACIA_DELANTE);
+  printf("\n");
+  dlist_recorrer_rec(lista, imprimir_entero, DLIST_RECORRIDO_HACIA_DELANTE);
 
   printf("\nRecorrido hacia atrás: ");
   dlist_recorrer(lista, imprimir_entero, DLIST_RECORRIDO_HACIA_ATRAS);
+  printf("\n");
+  dlist_recorrer_rec(lista, imprimir_entero, DLIST_RECORRIDO_HACIA_ATRAS);
 
   dlist_destruir(lista);
   return 0;

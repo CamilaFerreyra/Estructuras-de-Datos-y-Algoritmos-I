@@ -24,6 +24,9 @@ typedef enum {
 // Crea una lista vacía.
 DList dlist_crear();
 
+// Crea un puntero a nodo con el dato recibido
+DNodo* dlist_crear_nodo(int dato);
+
 // Destruye una lista.
 void dlist_destruir(DList lista);
 
@@ -43,5 +46,11 @@ DList dlist_agregar_inicio(DList lista, int dato);
  */
 void dlist_recorrer(DList lista, FuncionVisitante visit,
                     DListOrdenRecorrido ord);
+
+void dlist_recorrer_rec(DList lista, FuncionVisitante visit,
+                    DListOrdenRecorrido ord);
+
+void dlist_recorrer_rec_aux(DNodo* nodo, FuncionVisitante visit,
+  DListOrdenRecorrido ord);
 
 #endif                          /* __DLIST_H__ */

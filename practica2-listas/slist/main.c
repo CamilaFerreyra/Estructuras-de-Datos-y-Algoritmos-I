@@ -63,6 +63,8 @@ int main(int argc, char *argv[]) {
   lista = slist_eliminar(lista);
   slist_recorrer(lista, imprimir_entero);
 
+  printf("\nContiene?\n");
+  printf("¿El elemento %d está en lista?: %d",13, slist_contiene(lista, 13));
 
 
 

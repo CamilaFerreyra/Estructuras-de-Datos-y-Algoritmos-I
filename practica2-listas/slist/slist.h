@@ -74,6 +74,18 @@ SList slist_eliminar(SList lista);
 SList slist_eliminar_posicion(SList lista, int posicion);
 
 /**
+ * (e) Determina si un elemento está en una lista dada.
+ * retorna 1 si está, retorna 0 sino.
+ */
+int slist_contiene(SList lista, int dato);
+
+/**
+ * (f) Devuelve la posición de la primera ocurrencia de un elemento si el mismo está en
+ * la lista y -1 en caso que no esté.
+ */
+int slist_indice(SList lista, int dato);
+
+/**
  * (l) Recibe una lista y la divide a la mitad.
  * Retorna un puntero al primer elemento de la segunda mitad.
  * Si la lista tiene (2n+1) elementos, la primer lista tendrá (n+1) elementos.

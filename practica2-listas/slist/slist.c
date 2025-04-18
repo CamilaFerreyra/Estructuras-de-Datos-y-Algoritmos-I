@@ -134,6 +134,25 @@ SList slist_eliminar_posicion(SList lista, int posicion) {
   return lista;
 }
 
+int slist_contiene(SList lista, int dato) {
+  for (int i = 0; i < slist_longitud(lista); i++) {
+    if (lista->dato == dato)
+      return 1;
+    else 
+     lista = lista->sig;
+  }
+  return 0;
+}
+
+int slist_indice(SList lista, int dato) {
+  for (int i = 0; i < slist_longitud(lista); i++) {
+    if (lista->dato == dato)
+      return i;
+    else 
+     lista = lista->sig;
+  }
+  return -1;
+}
 
 
 // realizable en o(n), ver cómo carajos
