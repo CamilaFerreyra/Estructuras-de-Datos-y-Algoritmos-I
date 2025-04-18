@@ -1,0 +1,32 @@
+# Apuntes y practicas
+.pdf
+# Archivos ejecutables
+a.out
+*.exe
+*.bin
+
+# Archivos objeto y de compilación
+*.o
+*.a
+*.so
+*.dll
+
+# Archivos de respaldo y temporales
+*~
+*.swp
+*.bak
+*.c~
+
+# Directorios de compilación
+build/
+dist/
+bin/
+obj/
+
+# Archivos de configuración local
+.env
+*.local
+
+# Archivos de IDE
+.vscode/
+.idea/
