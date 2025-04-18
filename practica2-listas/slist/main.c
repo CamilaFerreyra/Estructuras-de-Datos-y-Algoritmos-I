@@ -8,6 +8,12 @@ static void imprimir_entero(int dato) {
   printf("%d ", dato);
 }
 
+int intcmp (int a, int b) {
+  if (a == b) return 0;
+  if (a < b) return -1;
+  else return 1;
+}
+
 int main(int argc, char *argv[]) {
 
   srand(time(NULL));
@@ -46,7 +52,7 @@ int main(int argc, char *argv[]) {
   printf("\nprimera parte:\n");
   slist_recorrer(lista, imprimir_entero);
   printf("\nsegunda parte:\n");
-  slist_recorrer(lista2, imprimir_entero);
+  slist_recorrer(lista4, imprimir_entero);
 
   printf("\nInserto datos\n");
   slist_recorrer(lista, imprimir_entero);
@@ -56,15 +62,30 @@ int main(int argc, char *argv[]) {
   // por qué esa línea de arriba no da error?
   // esta en la posición cero si funciona mal, pues pierde la cabecera:
   // slist_insertar_posicion(lista, 0, 13);
+  
+  
+  /* esto funciona ok
   lista = slist_insertar(lista, 14);
   slist_recorrer(lista, imprimir_entero);
 
-  printf("\nElimino nodo random\n");
+  printf("\nElimino nodo random en lista\n");
   lista = slist_eliminar(lista);
   slist_recorrer(lista, imprimir_entero);
 
   printf("\nContiene?\n");
   printf("¿El elemento %d está en lista?: %d",13, slist_contiene(lista, 13));
+*/
+  printf("\nlista:");
+  slist_recorrer(lista, imprimir_entero);
+  printf("\nlista4:");
+  slist_recorrer(lista4, imprimir_entero);
+  SList listaInterseccion = slist_intersecar_custom(lista, lista3, (FuncionComparadora)intcmp);
+  printf("\nlista interseccion entre lista y lista4:");
+  slist_recorrer(listaInterseccion, imprimir_entero);
+
+  SList listaIntercalada = slist_intercalar(lista4, lista);
+  printf("\nlista intercalación de lista4 y lista:");
+  slist_recorrer(listaIntercalada, imprimir_entero);
 
 
 

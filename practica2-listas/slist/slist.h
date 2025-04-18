@@ -5,6 +5,7 @@
 
 //sinónimos de tipos
 typedef void (*FuncionVisitante)(int dato);
+typedef int (*FuncionComparadora)(int dato1, int dato2);
 
 typedef struct _SNodo {
   int dato;
@@ -85,6 +86,22 @@ int slist_contiene(SList lista, int dato);
  */
 int slist_indice(SList lista, int dato);
 
+/** 
+ * (g) devuelve una lista con los elementos comunes (ind de la posición)
+ * las listas originales no se modifican.
+ */
+SList slist_intersecar(SList lista1, SList lista2);
+
+/**
+ * (1.h) igual que intersecar, pero toma noción de igualdad de funcion comparar
+ * comparar se comporta como strcmp.
+ */
+SList slist_intersecar_custom(SList lista1, SList lista2, FuncionComparadora comparar);
+
+/**
+ * (1.k) dadas dos listas, intercala elementos en una lista resultante
+ */
+SList slist_intercalar(SList lista1, SList lista2);
 /**
  * (l) Recibe una lista y la divide a la mitad.
  * Retorna un puntero al primer elemento de la segunda mitad.

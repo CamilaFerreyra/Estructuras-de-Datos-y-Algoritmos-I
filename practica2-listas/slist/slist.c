@@ -154,6 +154,44 @@ int slist_indice(SList lista, int dato) {
   return -1;
 }
 
+SList slist_intersecar(SList lista1, SList lista2) {
+  SList lista = slist_crear();
+  if (lista1 == NULL) return NULL;
+  if (lista2 == NULL) return slist_intersecar(lista1->sig, lista2);
+  if (lista1->dato == lista2->dato) {
+    return slist_agregar_inicio(slist_intersecar(lista1, lista2->sig), lista1->dato);
+  } else {
+    return slist_intersecar(lista1->sig, lista2);
+  }
+}
+
+SList slist_intersecar_custom(SList lista1, SList lista2, FuncionComparadora comparar) {
+  SList lista = slist_crear();
+  if (lista1 == NULL) return NULL;
+  if (lista2 == NULL) return slist_intersecar(lista1->sig, lista2);
+  if (comparar(lista1->dato,lista2->dato) == 0) {
+    return slist_agregar_inicio(slist_intersecar(lista1, lista2->sig), lista1->dato);
+  } else {
+    return slist_intersecar(lista1->sig, lista2);
+  }
+}
+
+SList slist_intercalar(SList lista1, SList lista2) {
+  if (lista1 == NULL) {
+    if (lista2 == NULL)
+      return NULL;
+    else return slist_agregar_inicio(slist_intercalar(lista1, lista2->sig), lista2->dato);
+  } else { 
+    if (lista2 == NULL) {
+      return slist_agregar_inicio(slist_intercalar(lista1->sig, lista2), lista1->dato);
+    } else {
+      slist_agregar_inicio(slist_intercalar(lista2, lista1->sig),lista1->dato);
+    }
+}
+
+}
+
+
 
 // realizable en o(n), ver cómo carajos
 SList slist_partir(SList lista) {
@@ -164,7 +202,8 @@ SList slist_partir(SList lista) {
   printf("\nlong de la lista2: %d\n", longLista - longLista1);
 
   SList lista2;
-  for (int i = 0; i < longLista1; lista = lista->sig, i++);
+  for (int i = 1; i < longLista1; lista = lista->sig, i++);
+
   lista2 = lista->sig;
   lista->sig = NULL;
 
