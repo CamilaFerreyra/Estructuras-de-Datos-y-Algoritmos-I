@@ -187,11 +187,30 @@ SList slist_intercalar(SList lista1, SList lista2) {
     } else {
       slist_agregar_inicio(slist_intercalar(lista2, lista1->sig),lista1->dato);
     }
+  }
 }
 
+SList slist_ordenar(SList lista, FuncionComparadora comparar) {
+  SList ordenada = slist_crear();
+  ordenada = slist_agregar_inicio(ordenada, lista->dato);
+  for (SList temp = lista->sig; temp != NULL; temp = temp->sig) {
+    ordenada = slist_agregar_creciente(ordenada, temp->dato, comparar);
+ }
+ return ordenada;
+
 }
 
+SList slist_reverso(SList lista);
 
+
+SList slist_agregar_creciente(SList lista, int dato, FuncionComparadora comparar) {
+  if(slist_vacia(lista) || ((comparar(lista->dato, dato) > 0))) 
+    return slist_agregar_inicio(lista, dato);
+  else {
+    lista->sig = slist_agregar_creciente(lista->sig, dato, comparar);
+    return lista;
+  }
+}
 
 // realizable en o(n), ver cómo carajos
 SList slist_partir(SList lista) {

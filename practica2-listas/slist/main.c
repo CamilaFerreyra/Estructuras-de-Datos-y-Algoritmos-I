@@ -87,6 +87,9 @@ int main(int argc, char *argv[]) {
   printf("\nlista intercalación de lista4 y lista:");
   slist_recorrer(listaIntercalada, imprimir_entero);
 
+  printf("\nLista intercalada ordenada:\n");
+  SList intercadalaOrdenada = slist_ordenar(listaIntercalada, (FuncionComparadora)intcmp);
+  slist_recorrer(intercadalaOrdenada, imprimir_entero);
 
 
 

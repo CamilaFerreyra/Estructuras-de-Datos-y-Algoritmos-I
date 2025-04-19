@@ -45,49 +45,49 @@ SList slist_agregar_inicio(SList lista, int dato);
 void slist_recorrer(SList lista, FuncionVisitante visit);
 
 /**
- * (a) Retorna la longitud de una lista
+ * (1.a) Retorna la longitud de una lista
  */
 int slist_longitud(SList lista);
 
 /**
- * (b) Retorna una lista, concatenación de las listas que recibe
+ * (1.b) Retorna una lista, concatenación de las listas que recibe
  */
 SList slist_concatenar(SList lista1, SList lista2);
 
 /**
- * (c) Inserta un dato en una lista en una posición arbitraria.
+ * (1.c) Inserta un dato en una lista en una posición arbitraria.
  */
 SList slist_insertar(SList lista, int dato);
 
 /**
- * (c.1) Inserta un dato en una lista en una posición arbitraria.
+ * (1.c.1) Inserta un dato en una lista en una posición arbitraria.
  */
 SList slist_insertar_posicion(SList lista, int posicion, int dato);
 
 /**
- * (d) Borra de una lista un dato apuntado en una posición arbitraria.
+ * (1.d) Borra de una lista un dato apuntado en una posición arbitraria.
  */
 SList slist_eliminar(SList lista);
 
 /**
- * (d.1) Borra de una lista un dato apuntado en una posición dada.
+ * (1.d.1) Borra de una lista un dato apuntado en una posición dada.
  */
 SList slist_eliminar_posicion(SList lista, int posicion);
 
 /**
- * (e) Determina si un elemento está en una lista dada.
+ * (1.e) Determina si un elemento está en una lista dada.
  * retorna 1 si está, retorna 0 sino.
  */
 int slist_contiene(SList lista, int dato);
 
 /**
- * (f) Devuelve la posición de la primera ocurrencia de un elemento si el mismo está en
+ * (1.f) Devuelve la posición de la primera ocurrencia de un elemento si el mismo está en
  * la lista y -1 en caso que no esté.
  */
 int slist_indice(SList lista, int dato);
 
 /** 
- * (g) devuelve una lista con los elementos comunes (ind de la posición)
+ * (1.g) devuelve una lista con los elementos comunes (ind de la posición)
  * las listas originales no se modifican.
  */
 SList slist_intersecar(SList lista1, SList lista2);
@@ -99,11 +99,24 @@ SList slist_intersecar(SList lista1, SList lista2);
 SList slist_intersecar_custom(SList lista1, SList lista2, FuncionComparadora comparar);
 
 /**
+ * (1.i) ordena una lista según criterio dado por la func comparadora
+ * comparar retorna igual que strcmp()
+ */
+SList slist_ordenar(SList lista, FuncionComparadora comparar);
+SList slist_agregar_creciente(SList lista, int dato, FuncionComparadora comparar);
+
+/**
+ * (1.j) obtiene el reverso de una lista.
+ */
+SList slist_reverso(SList lista);
+
+/**
  * (1.k) dadas dos listas, intercala elementos en una lista resultante
  */
 SList slist_intercalar(SList lista1, SList lista2);
+
 /**
- * (l) Recibe una lista y la divide a la mitad.
+ * (1.l) Recibe una lista y la divide a la mitad.
  * Retorna un puntero al primer elemento de la segunda mitad.
  * Si la lista tiene (2n+1) elementos, la primer lista tendrá (n+1) elementos.
  */
