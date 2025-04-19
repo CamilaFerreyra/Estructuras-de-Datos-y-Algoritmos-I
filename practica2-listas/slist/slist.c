@@ -197,19 +197,25 @@ SList slist_ordenar(SList lista, FuncionComparadora comparar) {
     ordenada = slist_agregar_creciente(ordenada, temp->dato, comparar);
  }
  return ordenada;
-
 }
 
-SList slist_reverso(SList lista);
-
-
 SList slist_agregar_creciente(SList lista, int dato, FuncionComparadora comparar) {
-  if(slist_vacia(lista) || ((comparar(lista->dato, dato) > 0))) 
+  if(slist_vacia(lista) || ((comparar(lista->dato, dato) >= 0))) 
     return slist_agregar_inicio(lista, dato);
   else {
-    lista->sig = slist_agregar_creciente(lista->sig, dato, comparar);
-    return lista;
+    //lista->sig = slist_agregar_creciente(lista->sig, dato, comparar);
+    //return lista;
+    return slist_agregar_inicio(slist_agregar_creciente(lista->sig, dato, comparar),
+             lista->dato);
   }
+}
+
+SList slist_reverso(SList lista) {
+  SList reverso = slist_crear();
+  for(SList temp = lista; temp != NULL; temp = temp->sig) {
+    reverso = slist_agregar_inicio(reverso, temp->dato);
+  }
+  return reverso;
 }
 
 // realizable en o(n), ver cómo carajos

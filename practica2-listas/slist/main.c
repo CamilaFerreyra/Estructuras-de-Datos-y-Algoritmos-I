@@ -91,6 +91,9 @@ int main(int argc, char *argv[]) {
   SList intercadalaOrdenada = slist_ordenar(listaIntercalada, (FuncionComparadora)intcmp);
   slist_recorrer(intercadalaOrdenada, imprimir_entero);
 
+  printf("\nLista intercalada reverso:\n");
+  intercadalaOrdenada = slist_reverso(listaIntercalada);
+  slist_recorrer(intercadalaOrdenada, imprimir_entero);
 
 
 
