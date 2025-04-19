@@ -104,6 +104,15 @@ SGList sglist_insertar(SGList lista, void *dato, FuncionCopia copiar, FuncionCom
               lista->data, copiar);
     }
   }
+
+  if(sglist_vacia(lista) || (comparar(lista->data, dato) >= 0)) {
+    return glist_agregar_inicio(lista, dato, copiar);
+  } else {
+    //return sglist_insertar(lista->next, dato, copiar, comparar);
+    return glist_agregar_inicio(sglist_insertar(lista->next, dato, copiar, comparar),
+            lista->data, copiar);
+  }
+
 }
 
 int sglist_buscar(GList lista, void* dato, FuncionComparadora comparar) {
