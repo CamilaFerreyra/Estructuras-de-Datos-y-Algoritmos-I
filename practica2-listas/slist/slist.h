@@ -33,11 +33,15 @@ int slist_vacia(SList lista);
  * Agrega un elemento al final de la lista.
  */
 SList slist_agregar_final(SList lista, int dato);
+void slist_agregar_final2(SList * lista, int dato);
+SList slist_agregar_finalR(SList lista, int dato);
 
 /**
  * Agrega un elemento al inicio de la lista.
  */
 SList slist_agregar_inicio(SList lista, int dato);
+void slist_agregar_inicio2(SList * lista, int dato);
+//no tiene sentido el modo rec.
 
 /**
  * Recorrido de la lista, utilizando la funcion pasada.
@@ -96,14 +100,16 @@ SList slist_intersecar(SList lista1, SList lista2);
  * (1.h) igual que intersecar, pero toma noción de igualdad de funcion comparar
  * comparar se comporta como strcmp.
  */
-SList slist_intersecar_custom(SList lista1, SList lista2, FuncionComparadora comparar);
+SList slist_intersecar_custom(SList lista1, SList lista2,
+                              FuncionComparadora comparar);
 
 /**
  * (1.i) ordena una lista según criterio dado por la func comparadora
  * comparar retorna igual que strcmp()
  */
 SList slist_ordenar(SList lista, FuncionComparadora comparar);
-SList slist_agregar_creciente(SList lista, int dato, FuncionComparadora comparar);
+SList slist_agregar_creciente(SList lista, int dato,
+                              FuncionComparadora comparar);
 
 /**
  * (1.j) obtiene el reverso de una lista.

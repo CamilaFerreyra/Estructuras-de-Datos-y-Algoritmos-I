@@ -24,15 +24,39 @@ SList slist_agregar_final(SList lista, int dato) {
   SNodo *nuevoNodo = malloc(sizeof(SNodo));
   nuevoNodo->dato = dato;
   nuevoNodo->sig = NULL;
-
   if (lista == NULL)
-    return nuevoNodo;
+    lista = nuevoNodo;
+  else {
+    SList temp = lista;
+    for (; temp->sig != NULL; temp = temp->sig);
+    /* ahora 'temp' apunta al ultimo elemento en la lista */
+    temp->sig = nuevoNodo;
+    //ya modifico la lista, tiene que devolverse ok
+  }
+  return lista;
+}
 
-  SList nodo = lista;
-  for (; nodo->sig != NULL; nodo = nodo->sig);
-  /* ahora 'nodo' apunta al ultimo elemento en la lista */
+void slist_agregar_final2(SList * lista, int dato) {
+  SNodo *nuevoNodo = malloc(sizeof(SNodo));
+  nuevoNodo->dato = dato;
+  nuevoNodo->sig = NULL;
+  if (*lista == NULL) {
+    *lista = nuevoNodo;
+  } else {
+    SList temp = *lista;
+    for (; temp->sig != NULL; temp = temp->sig);
+    temp->sig = nuevoNodo;
+  }
+}
 
-  nodo->sig = nuevoNodo;
+SList slist_agregar_finalR(SList lista, int dato) {
+  if (lista == NULL) {
+    lista = malloc(sizeof(SNodo));
+    lista->dato = dato;
+    lista->sig = NULL;
+  } else {
+    lista->sig = slist_agregar_finalR(lista->sig, dato);
+  }
   return lista;
 }
 
@@ -41,6 +65,14 @@ SList slist_agregar_inicio(SList lista, int dato) {
   nuevoNodo->dato = dato;
   nuevoNodo->sig = lista;
   return nuevoNodo;
+}
+
+void slist_agregar_inicio2(SList * lista, int dato) {
+  SNodo *nuevoNodo = malloc(sizeof(SNodo));
+  nuevoNodo->dato = dato;
+  //no importa si es null, lo engancho. Si es null, se engancha el null.
+  nuevoNodo->sig = *lista;
+  *lista = nuevoNodo;
 }
 
 void slist_recorrer(SList lista, FuncionVisitante visit) {
@@ -138,8 +170,8 @@ int slist_contiene(SList lista, int dato) {
   for (int i = 0; i < slist_longitud(lista); i++) {
     if (lista->dato == dato)
       return 1;
-    else 
-     lista = lista->sig;
+    else
+      lista = lista->sig;
   }
   return 0;
 }
@@ -148,29 +180,36 @@ int slist_indice(SList lista, int dato) {
   for (int i = 0; i < slist_longitud(lista); i++) {
     if (lista->dato == dato)
       return i;
-    else 
-     lista = lista->sig;
+    else
+      lista = lista->sig;
   }
   return -1;
 }
 
 SList slist_intersecar(SList lista1, SList lista2) {
   SList lista = slist_crear();
-  if (lista1 == NULL) return NULL;
-  if (lista2 == NULL) return slist_intersecar(lista1->sig, lista2);
+  if (lista1 == NULL)
+    return NULL;
+  if (lista2 == NULL)
+    return slist_intersecar(lista1->sig, lista2);
   if (lista1->dato == lista2->dato) {
-    return slist_agregar_inicio(slist_intersecar(lista1, lista2->sig), lista1->dato);
+    return slist_agregar_inicio(slist_intersecar(lista1, lista2->sig),
+                                lista1->dato);
   } else {
     return slist_intersecar(lista1->sig, lista2);
   }
 }
 
-SList slist_intersecar_custom(SList lista1, SList lista2, FuncionComparadora comparar) {
+SList slist_intersecar_custom(SList lista1, SList lista2,
+                              FuncionComparadora comparar) {
   SList lista = slist_crear();
-  if (lista1 == NULL) return NULL;
-  if (lista2 == NULL) return slist_intersecar(lista1->sig, lista2);
-  if (comparar(lista1->dato,lista2->dato) == 0) {
-    return slist_agregar_inicio(slist_intersecar(lista1, lista2->sig), lista1->dato);
+  if (lista1 == NULL)
+    return NULL;
+  if (lista2 == NULL)
+    return slist_intersecar(lista1->sig, lista2);
+  if (comparar(lista1->dato, lista2->dato) == 0) {
+    return slist_agregar_inicio(slist_intersecar(lista1, lista2->sig),
+                                lista1->dato);
   } else {
     return slist_intersecar(lista1->sig, lista2);
   }
@@ -180,12 +219,15 @@ SList slist_intercalar(SList lista1, SList lista2) {
   if (lista1 == NULL) {
     if (lista2 == NULL)
       return NULL;
-    else return slist_agregar_inicio(slist_intercalar(lista1, lista2->sig), lista2->dato);
-  } else { 
+    else
+      return slist_agregar_inicio(slist_intercalar(lista1, lista2->sig),
+                                  lista2->dato);
+  } else {
     if (lista2 == NULL) {
-      return slist_agregar_inicio(slist_intercalar(lista1->sig, lista2), lista1->dato);
+      return slist_agregar_inicio(slist_intercalar(lista1->sig, lista2),
+                                  lista1->dato);
     } else {
-      slist_agregar_inicio(slist_intercalar(lista2, lista1->sig),lista1->dato);
+      slist_agregar_inicio(slist_intercalar(lista2, lista1->sig), lista1->dato);
     }
   }
 }
@@ -195,24 +237,26 @@ SList slist_ordenar(SList lista, FuncionComparadora comparar) {
   ordenada = slist_agregar_inicio(ordenada, lista->dato);
   for (SList temp = lista->sig; temp != NULL; temp = temp->sig) {
     ordenada = slist_agregar_creciente(ordenada, temp->dato, comparar);
- }
- return ordenada;
+  }
+  return ordenada;
 }
 
-SList slist_agregar_creciente(SList lista, int dato, FuncionComparadora comparar) {
-  if(slist_vacia(lista) || ((comparar(lista->dato, dato) >= 0))) 
+SList slist_agregar_creciente(SList lista, int dato,
+                              FuncionComparadora comparar) {
+  if (slist_vacia(lista) || ((comparar(lista->dato, dato) >= 0)))
     return slist_agregar_inicio(lista, dato);
   else {
     //lista->sig = slist_agregar_creciente(lista->sig, dato, comparar);
     //return lista;
-    return slist_agregar_inicio(slist_agregar_creciente(lista->sig, dato, comparar),
-             lista->dato);
+    return
+        slist_agregar_inicio(slist_agregar_creciente
+                             (lista->sig, dato, comparar), lista->dato);
   }
 }
 
 SList slist_reverso(SList lista) {
   SList reverso = slist_crear();
-  for(SList temp = lista; temp != NULL; temp = temp->sig) {
+  for (SList temp = lista; temp != NULL; temp = temp->sig) {
     reverso = slist_agregar_inicio(reverso, temp->dato);
   }
   return reverso;
