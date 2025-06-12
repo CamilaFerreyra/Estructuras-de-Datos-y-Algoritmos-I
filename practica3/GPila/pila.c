@@ -28,10 +28,10 @@ void pila_destruir (Pila pila) {
 }
 
 int pila_es_vacia(Pila pila) {
-  if (pila == NULL) return 1;
-  else return 0;
+  //if (pila == NULL) return 1;
+  //else return 0;
   //return glist_vacia(pila);
- // return (pila == NULL);
+  return (pila == NULL);
 }
 
 int* pila_tope (Pila pila) {
@@ -79,4 +79,17 @@ Pila pila_invertir(Pila pila) {
     return pilaInvertida;
   }
   return pila;
+}
+
+GList lista_invertir(SGList lista) {
+  if(!(glist_vacia(lista))) {
+    Pila pilaInvertida = pila_crear();
+    GList aux = lista;
+    for (;!glist_vacia(aux); aux = aux->next) {
+      pilaInvertida = pila_apilar(pilaInvertida, aux->data);
+    }
+    return pilaInvertida;
+  }
+  return lista;
+
 }

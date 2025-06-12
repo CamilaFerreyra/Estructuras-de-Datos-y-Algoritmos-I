@@ -39,5 +39,10 @@ void pila_imprimir (Pila pila);
  */
 Pila pila_invertir(Pila pila);
 
+/**
+ * 3. Escriba una función que utilice una pila para revertir 
+ * el orden de una lista simplemente enlazada.
+ */
+GList lista_invertir(SGList lista);
 
 #endif
